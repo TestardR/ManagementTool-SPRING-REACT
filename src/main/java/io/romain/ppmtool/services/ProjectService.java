@@ -1,4 +1,4 @@
-package io.romain.ppmtool.web;
+package io.romain.ppmtool.services;
 
 import io.romain.ppmtool.domain.Project;
 import io.romain.ppmtool.repositories.ProjectRepository;
