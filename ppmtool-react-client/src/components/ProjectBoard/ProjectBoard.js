@@ -12,7 +12,7 @@ class ProjectBoard extends Component {
         <br />
         <hr />
         {
-          //<!-- Backlog STARTS HERE -->
+          // <!-- Backlog STARTS HERE -->
         }
         <div className="container">
           <div className="row">
@@ -22,9 +22,8 @@ class ProjectBoard extends Component {
                   <h3>TO DO</h3>
                 </div>
               </div>
-
               {
-                //<!-- SAMPLE PROJECT TASK STARTS HERE -->
+                // <!-- SAMPLE PROJECT TASK STARTS HERE -->
               }
               <div className="card mb-1 bg-light">
                 <div className="card-header text-primary">
@@ -44,7 +43,7 @@ class ProjectBoard extends Component {
               </div>
 
               {
-                //<!-- SAMPLE PROJECT TASK ENDS HERE -->
+                // <!-- SAMPLE PROJECT TASK ENDS HERE -->
               }
             </div>
             <div className="col-md-4">
@@ -54,8 +53,8 @@ class ProjectBoard extends Component {
                 </div>
               </div>
               {
-                // <!-- SAMPLE PROJECT TASK STARTS HERE -->
-                //<!-- SAMPLE PROJECT TASK ENDS HERE -->
+                //  <!-- SAMPLE PROJECT TASK STARTS HERE -->
+                //         <!-- SAMPLE PROJECT TASK ENDS HERE -->
               }
             </div>
             <div className="col-md-4">
