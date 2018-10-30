@@ -8,7 +8,12 @@ import io.romain.ppmtool.repositories.BacklogRepository;
 import io.romain.ppmtool.repositories.ProjectRepository;
 import io.romain.ppmtool.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 @Service
 public class ProjectTaskService {
@@ -89,11 +94,22 @@ public class ProjectTaskService {
     }
 
     public ProjectTask updateByProjectSequence(ProjectTask updatedTask, String backlog_id, String pt_id){
-        ProjectTask projectTask = projectTaskRepository.findByProjectSequence(pt_id);
+        ProjectTask projectTask = findPTByProjectSequence(backlog_id, pt_id);
 
         projectTask = updatedTask;
 
         return projectTaskRepository.save(projectTask);
+    }
+
+    public void deletePTByProjectSequence(String backlog_id, String pt_id){
+        ProjectTask projectTask = findPTByProjectSequence(backlog_id, pt_id);
+
+        Backlog backlog = projectTask.getBacklog();
+        List<ProjectTask> pts = projectTask.getBacklog().getProjectTasks();
+        pts.remove(projectTask);
+        backlogRepository.save(backlog);
+
+        projectTaskRepository.delete(projectTask);
     }
     //Update project task
 
@@ -102,6 +118,7 @@ public class ProjectTaskService {
     //replace it with updated task
 
     //save update
+
 
 
 
