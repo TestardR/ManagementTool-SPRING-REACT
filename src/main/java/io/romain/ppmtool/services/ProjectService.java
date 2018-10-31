@@ -4,6 +4,7 @@ import io.romain.ppmtool.domain.Backlog;
 import io.romain.ppmtool.domain.Project;
 import io.romain.ppmtool.domain.User;
 import io.romain.ppmtool.exceptions.ProjectIdException;
+import io.romain.ppmtool.exceptions.ProjectNotFoundException;
 import io.romain.ppmtool.repositories.BacklogRepository;
 import io.romain.ppmtool.repositories.ProjectRepository;
 import io.romain.ppmtool.repositories.UserRepository;
@@ -50,7 +51,7 @@ public class ProjectService {
 
     }
 
-    public Project findProjectByIdentifier(String projectId){
+    public Project findProjectByIdentifier(String projectId, String username){
         Project project = projectRepository.findByProjectIdentifier(projectId.toUpperCase());
 
         if(project == null){
@@ -58,19 +59,19 @@ public class ProjectService {
 
         }
 
+        if(!project.getProjectLeader().equals(username)){
+            throw new ProjectNotFoundException("Project not found in your account");
+        }
+
         return project;
     }
 
-        public Iterable<Project> findAllProjects(){
-            return projectRepository.findAll();
+        public Iterable<Project> findAllProjects(String username){
+            return projectRepository.findAllByProjectLeader(username);
         }
 
-        public void deleteProejctByIdentifier(String projectid){
-            Project project = projectRepository.findByProjectIdentifier(projectid.toUpperCase());
-            if(project == null){
-                throw new ProjectIdException("Cannot delete Project with ID '"+ projectid + "'. This project does not exist");
+        public void deleteProejctByIdentifier(String projectid, String username){
 
-            }
-            projectRepository.delete(project);
+            projectRepository.delete(findProjectByIdentifier(projectid, username));
         }
 }
