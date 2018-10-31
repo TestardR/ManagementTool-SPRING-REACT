@@ -1,35 +1,35 @@
 package io.romain.ppmtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Email(message = "Username needs to be an email")
     @NotBlank(message = "username is required")
+    @Column(unique = true)
     private String username;
-
     @NotBlank(message = "Please enter your full name")
     private String fullName;
-
-    @NotBlank(message = "Password filed is required")
+    @NotBlank(message = "Password field is required")
     private String password;
-
     @Transient
     private String confirmPassword;
-    private Date created_At;
-    private Date updated_At;
+    private Date create_At;
+    private Date update_At;
 
     //OneToMany with Project
-
-
-
 
     public User() {
     }
@@ -74,29 +74,63 @@ public class User {
         this.confirmPassword = confirmPassword;
     }
 
-    public Date getCreated_At() {
-        return created_At;
+    public Date getCreate_At() {
+        return create_At;
     }
 
-    public void setCreated_At(Date created_At) {
-        this.created_At = created_At;
+    public void setCreate_At(Date create_At) {
+        this.create_At = create_At;
     }
 
-    public Date getUpdated_At() {
-        return updated_At;
+    public Date getUpdate_At() {
+        return update_At;
     }
 
-    public void setUpdated_At(Date updated_At) {
-        this.updated_At = updated_At;
+    public void setUpdate_At(Date update_At) {
+        this.update_At = update_At;
     }
 
     @PrePersist
     protected void onCreate(){
-        this.created_At = new Date();
+        this.create_At = new Date();
     }
 
     @PreUpdate
     protected void onUpdate(){
-        this.updated_At = new Date();
+        this.update_At = new Date();
+    }
+
+    /*
+    UserDetails interface methods
+     */
+
+    @Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true;
     }
 }
