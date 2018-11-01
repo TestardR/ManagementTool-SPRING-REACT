@@ -25,7 +25,7 @@ class Login extends Component {
                     name="password"
                   />
                 </div>
-                <input type="submit" class="btn btn-info btn-block mt-4" />
+                <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
           </div>
