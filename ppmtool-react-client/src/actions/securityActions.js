@@ -11,10 +11,10 @@ export const createNewUser = (newUser, history) => async dispatch => {
       type: GET_ERRORS,
       payload: {}
     });
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: GET_ERRORS,
-      payload: error.response.data
+      payload: err.response.data
     });
   }
 };
@@ -36,10 +36,10 @@ export const login = LoginRequest => async dispatch => {
       type: SET_CURRENT_USER,
       payload: decoded
     });
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: GET_ERRORS,
-      payload: error.response.data
+      payload: err.response.data
     });
   }
 };
