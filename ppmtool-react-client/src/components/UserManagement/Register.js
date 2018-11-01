@@ -15,8 +15,8 @@ class Register extends Component {
       confirmPassword: '',
       errors: {}
     };
-    this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -74,7 +74,7 @@ class Register extends Component {
                 </div>
                 <div className="form-group">
                   <input
-                    type="email"
+                    type="text"
                     className={classnames('form-control form-control-lg', {
                       'is-invalid': errors.username
                     })}
@@ -136,7 +136,8 @@ Register.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  errors: state.errors
+  errors: state.errors,
+  security: state.security
 });
 
 export default connect(
